@@ -1,26 +1,32 @@
 #!/bin/bash
 
 #$1 = clean data folder (files like train.et, train.en, test.et, test.en, valid.et, valid.et)
-#$2 = sentencepiece model path
-#$3 = tokenized data folder path
-#$4 = sentencepiece dictionary path
+#$2 = sentencepiece model directory path
+#$3 = tokenized data directory path
+#$4 = sentencepiece model prefix
 #$5 = source language (en/et/ru/de)
 #$6 = target language (en/et/ru/de)
 #$7 = binarized data directory path
 #$8 = model directory path
+#$9 = sentencepiece vocabulary size
+#$10 = train file name prefix
 
-python spm_tokenization.py --datadir $1 --spmodel $2 --destdir $3
+python spm_tokenization.py --datadir $1 --spmodelpath $2 --destdir $3 --modelprefix $4 --vocabsize $9 --trainprefix ${10}
 
+SPM_PATH=$2
+SPM_PREFIX=$4
+SPM_DICT="${SPM_PATH}/${SPM_PREFIX}.vocab"
+FAIRSEQ_COMPAT_DICT="${SPM_PATH}/${SPM_PREFIX}.compat_vocab"
+tail -n +4 $SPM_DICT | cut -f1 | sed 's/$/ 100/g' > $FAIRSEQ_COMPAT_DICT
 
 # preprocessing 
 DATA_FOLDER=$3
-SPM_PATH=$4
 SRC_LANG=$5
 TGT_LANG=$6
 DEST_DIR=$7
 fairseq-preprocess \
-    --srcdict $SPM_PATH \
-    --tgtdict $SPM_PATH \
+    --srcdict $FAIRSEQ_COMPAT_DICT \
+    --tgtdict $FAIRSEQ_COMPAT_DICT \
     --source-lang $SRC_LANG --target-lang $TGT_LANG \
     --trainpref $DATA_FOLDER/train \
     --validpref $DATA_FOLDER/valid \
