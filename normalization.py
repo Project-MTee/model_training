@@ -5,10 +5,7 @@ import argparse
 
 
 def normalize_data(filepath, lang):
-    with open(filepath, 'r', encoding='utf-8') as in_file:
-        lines = in_file.readlines()
-
-    # define and compile all the patterns
+     # define and compile all the patterns
 
     regex_1 = re.compile(r'\r')
     regex_2 = re.compile(r'\(')
@@ -71,78 +68,75 @@ def normalize_data(filepath, lang):
 
     # start normalizing
     new_lines = []
+    out_file = ".".join(filepath.split(".")[0:-1]) + ".n." + lang
+    with open(filepath, 'r', encoding='utf-8') as in_file, open(out_file, 'w', encoding='utf-8') as out_file:
+        for sentence in in_file:
+            sentence = sentence.strip()
+            sentence = regex_1.sub(r'', sentence)
+            sentence = regex_2.sub(r' (', sentence)
 
-    for sentence in lines:
-        sentence = sentence.strip()
-        sentence = regex_1.sub(r'', sentence)
-        sentence = regex_2.sub(r' (', sentence)
+            # remove extra spaces
+            sentence = regex_3.sub(r' (', sentence)
+            sentence = regex_4.sub(r') ', sentence)
+            sentence = regex_5.sub(r' ', sentence)
+            sentence = regex_6.sub(r')\1', sentence)
+            sentence = regex_7.sub(r'(', sentence)
+            sentence = regex_8.sub(r')', sentence)
+            sentence = regex_9.sub(r'\1%', sentence)
+            sentence = regex_10.sub(r':', sentence)
+            sentence = regex_11.sub(r';', sentence)
+            # normalize unicode punctuation
+            sentence = regex_12.sub(r"'", sentence)
+            sentence = regex_13.sub(r' " ', sentence)
 
-        # remove extra spaces
-        sentence = regex_3.sub(r' (', sentence)
-        sentence = regex_4.sub(r') ', sentence)
-        sentence = regex_5.sub(r' ', sentence)
-        sentence = regex_6.sub(r')\1', sentence)
-        sentence = regex_7.sub(r'(', sentence)
-        sentence = regex_8.sub(r')', sentence)
-        sentence = regex_9.sub(r'\1%', sentence)
-        sentence = regex_10.sub(r':', sentence)
-        sentence = regex_11.sub(r';', sentence)
-        # normalize unicode punctuation
-        sentence = regex_12.sub(r"'", sentence)
-        sentence = regex_13.sub(r' " ', sentence)
+            sentence = regex_14.sub(r'"', sentence)
+            sentence = regex_15.sub(r'"', sentence)
+            sentence = regex_16.sub(r'"', sentence)
+            sentence = regex_17.sub(r'-', sentence)
+            sentence = regex_18.sub(r' - ', sentence)
+            sentence = regex_19.sub(r' ', sentence)
+            sentence = regex_20.sub(r"'", sentence)
+            sentence = regex_21.sub(r"\1'\2", sentence)
+            sentence = regex_22.sub(r"\1'\2", sentence)
+            sentence = regex_23.sub(r"'", sentence)
+            sentence = regex_24.sub(r"'", sentence)
+            sentence = regex_25.sub(r"'", sentence)
+            sentence = regex_26.sub(r'"', sentence)
+            sentence = regex_27.sub(r'"', sentence)
+            sentence = regex_28.sub(r'...', sentence)
+            # French quotes
+            sentence = regex_29.sub(r' "', sentence)
+            sentence = regex_30.sub(r'"', sentence)
+            sentence = regex_31.sub(r'"', sentence)
+            sentence = regex_32.sub(r'" ', sentence)
+            sentence = regex_33.sub(r'"', sentence)
+            sentence = regex_34.sub(r'"', sentence)
+            # handle pseudo-spaces
+            sentence = regex_35.sub(r'%', sentence)
+            sentence = regex_36.sub(r'nº ', sentence)
+            sentence = regex_37.sub(r':', sentence)
+            sentence = regex_38.sub(r' ºC', sentence)
+            sentence = regex_39.sub(r' cm', sentence)
+            sentence = regex_40.sub(r'?', sentence)
+            sentence = regex_41.sub(r'!', sentence)
+            sentence = regex_42.sub(r';', sentence)
+            sentence = regex_43.sub(r', ', sentence)
+            sentence = regex_44.sub(r' ', sentence)
 
-        sentence = regex_14.sub(r'"', sentence)
-        sentence = regex_15.sub(r'"', sentence)
-        sentence = regex_16.sub(r'"', sentence)
-        sentence = regex_17.sub(r'-', sentence)
-        sentence = regex_18.sub(r' - ', sentence)
-        sentence = regex_19.sub(r' ', sentence)
-        sentence = regex_20.sub(r"'", sentence)
-        sentence = regex_21.sub(r"\1'\2", sentence)
-        sentence = regex_22.sub(r"\1'\2", sentence)
-        sentence = regex_23.sub(r"'", sentence)
-        sentence = regex_24.sub(r"'", sentence)
-        sentence = regex_25.sub(r"'", sentence)
-        sentence = regex_26.sub(r'"', sentence)
-        sentence = regex_27.sub(r'"', sentence)
-        sentence = regex_28.sub(r'...', sentence)
-        # French quotes
-        sentence = regex_29.sub(r' "', sentence)
-        sentence = regex_30.sub(r'"', sentence)
-        sentence = regex_31.sub(r'"', sentence)
-        sentence = regex_32.sub(r'" ', sentence)
-        sentence = regex_33.sub(r'"', sentence)
-        sentence = regex_34.sub(r'"', sentence)
-        # handle pseudo-spaces
-        sentence = regex_35.sub(r'%', sentence)
-        sentence = regex_36.sub(r'nº ', sentence)
-        sentence = regex_37.sub(r':', sentence)
-        sentence = regex_38.sub(r' ºC', sentence)
-        sentence = regex_39.sub(r' cm', sentence)
-        sentence = regex_40.sub(r'?', sentence)
-        sentence = regex_41.sub(r'!', sentence)
-        sentence = regex_42.sub(r';', sentence)
-        sentence = regex_43.sub(r', ', sentence)
-        sentence = regex_44.sub(r' ', sentence)
+            # English "quotation," followed by comma, style
+            if lang == "en":
+                sentence = regex_45.sub(r'\1"', sentence)
+            # German', 'Spanish', 'French "quotation", followed by comma, style
+            else:
+                sentence = regex_46.sub(r'",', sentence)
+                sentence = regex_47.sub(r'"\1\2', sentence)  # don't fix period at end of sentence
 
-        # English "quotation," followed by comma, style
-        if lang == "en":
-            sentence = regex_45.sub(r'\1"', sentence)
-        # German', 'Spanish', 'French "quotation", followed by comma, style
-        else:
-            sentence = regex_46.sub(r'",', sentence)
-            sentence = regex_47.sub(r'"\1\2', sentence)  # don't fix period at end of sentence
+            if lang in ["de", "es", "cz", "cs", "fr"]:
+                sentence = regex_48.sub(r'\1,\2', sentence)
+            else:
+                sentence = regex_49.sub(r'\1.\2', sentence)
 
-        if lang in ["de", "es", "cz", "cs", "fr"]:
-            sentence = regex_48.sub(r'\1,\2', sentence)
-        else:
-            sentence = regex_49.sub(r'\1.\2', sentence)
-
-        new_lines.append(sentence)
-
-    with open(filepath + '.normalized', 'w', encoding='utf-8') as out_file:
-        for line in new_lines:
-            out_file.write(line + '\n')
+            out_file.write(sentence + '\n')
 
 def main(args):
     normalize_data(args.filepath, args.lang)
