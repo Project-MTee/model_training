@@ -7,7 +7,7 @@ data_dir=$1
 
 out_dir=$2
 
-lang_pairs=de-et,en-et,et-ru
+lang_pairs=$3
 sets=train,valid
 
 mkdir -p ${out_dir}

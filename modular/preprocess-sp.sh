@@ -9,9 +9,10 @@ sp_model_dir=$2
 # output dir for sp segmented files
 sp_out_dir=$3
 
+lang_pairs=$4
+
 mkdir -p ${sp_out_dir}
 
-lang_pairs=de-et,en-et,et-ru
 
 for lang_pair in ${lang_pairs//,/ }; do
   echo "segmenting $lang_pair"

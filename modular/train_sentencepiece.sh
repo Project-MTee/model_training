@@ -6,7 +6,8 @@ tmp_path=$2
 
 out_path=$3
 
-lang_pairs=de-et,en-et,et-ru
+lang_pairs=$4
+
 vocabulary_size=24000
 
 
@@ -30,8 +31,7 @@ get_seeded_random()
     </dev/zero 2>/dev/null
 }
 
-langs=et,en,ru,de
-
+langs=$(echo ${lang_pairs} | tr '-' '\n' | tr ',' '\n' | sort | uniq | paste -sd "," -)
 
 for lang in ${langs//,/ }; do
   echo "training ${lang} sp model"

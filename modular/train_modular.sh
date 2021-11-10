@@ -8,9 +8,10 @@ checkpoint_dir=$2
 # name for the model
 model_name=$3
 
+lang_pairs=$4
+
 # n_gpus * --update-freq = 24
 
-lang_pairs=de-et,et-de,en-et,et-en,et-ru,ru-et
 
 fairseq-train ${bin_dir}/ \
   --task multilingual_translation_sampled --arch multilingual_transformer \

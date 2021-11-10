@@ -9,12 +9,13 @@ sp_model_dir=$2
 # output directory for the binarized files
 bin_dir=$3
 
+lang_pairs=$4
+
 # number of workers to use for binarizing
-workers=$4
+workers=${5:-"8"}
 
 mkdir -p ${bin_dir}
 
-lang_pairs=de-et,en-et,et-ru
 
 for lang_pair in ${lang_pairs//,/ }; do
   echo "preprocessing $lang_pair"

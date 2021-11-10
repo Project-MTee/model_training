@@ -9,14 +9,16 @@ sp_out_dir=sp
 bin_dir=bin
 checkpoint_dir=checkpoints
 
-bash combine_data.sh ${input_dir} ${combined_dir}
+lang_pairs=de-et,en-et,et-ru
 
-bash shuffle_data.sh ${combined_dir} ${shuffled_dir}
+bash combine_data.sh ${input_dir} ${combined_dir} ${lang_pairs}
 
-bash train_sentencepiece.sh ${shuffled_dir} ${tmp_dir} ${sp_model_dir}
+bash shuffle_data.sh ${combined_dir} ${shuffled_dir} ${lang_pairs}
 
-bash preprocess-sp.sh ${combined_dir} ${sp_model_dir} ${sp_out_dir}
+bash train_sentencepiece.sh ${shuffled_dir} ${tmp_dir} ${sp_model_dir} ${lang_pairs}
 
-bash preprocess-fs.sh ${sp_out_dir} ${sp_model_dir} ${bin_dir}
+bash preprocess-sp.sh ${combined_dir} ${sp_model_dir} ${sp_out_dir} ${lang_pairs}
 
-bash train_modular.sh ${bin_dir} ${checkpoint_dir} modular_baseline
+bash preprocess-fs.sh ${sp_out_dir} ${sp_model_dir} ${bin_dir} ${lang_pairs}
+
+bash train_modular.sh ${bin_dir} ${checkpoint_dir} modular_baseline ${lang_pairs}

@@ -9,7 +9,8 @@ data_dir=$1
 # outputs the data in format {out_dir}/{split}.{lang-pair}.{lang}
 out_dir=$2
 
-lang_pairs=de-et,en-et,et-ru
+lang_pairs=$3
+
 domains=general,legal,crisis,military
 sets=train,valid
 
