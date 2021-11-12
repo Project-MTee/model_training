@@ -25,8 +25,8 @@ for lang_pair in ${lang_pairs//,/ }; do
   fairseq-preprocess --source-lang ${lang1} --target-lang ${lang2} \
     --trainpref ${in_dir}/train.${lang_pair} \
     --validpref ${in_dir}/valid.${lang_pair} \
-    --tgtdict ${sp_model_dir}/fairseq.${lang2}.vocab \
-    --srcdict ${sp_model_dir}/fairseq.${lang1}.vocab \
+    --tgtdict ${sp_model_dir}/dict.${lang2}.txt \
+    --srcdict ${sp_model_dir}/dict.${lang1}.txt \
     --destdir ${bin_dir} \
     --workers ${workers}
 

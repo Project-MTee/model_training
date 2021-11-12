@@ -8,7 +8,8 @@ data_dir=$1
 out_dir=$2
 
 lang_pairs=$3
-sets=train,valid
+
+sets=${4:-"train,valid"}
 
 mkdir -p ${out_dir}
 

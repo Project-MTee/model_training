@@ -11,8 +11,9 @@ out_dir=$2
 
 lang_pairs=$3
 
-domains=general,legal,crisis,military
-sets=train,valid
+sets=${4:-"train,valid"}
+
+domains=${5:-"general,legal,crisis,military"}
 
 mkdir -p ${out_dir}
 
@@ -32,5 +33,3 @@ for lang_pair in ${lang_pairs//,/ }; do
     done
   done
 done
-
-
