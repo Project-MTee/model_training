@@ -21,4 +21,4 @@ bash preprocess-sp.sh ${shuffled_dir} ${sp_model_dir} ${sp_out_dir} ${lang_pairs
 
 bash preprocess-fs.sh ${sp_out_dir} ${sp_model_dir} ${bin_dir} ${lang_pairs}
 
-bash train_modular.sh ${bin_dir} ${checkpoint_dir} modular_baseline ${lang_pairs}
+bash train_modular.sh ${bin_dir} ${checkpoint_dir} modular_baseline de-et,en-et,et-ru,et-de,et-en,ru-et
