@@ -10,6 +10,8 @@
 #$8 = model directory path
 #$9 = sentencepiece vocabulary size
 #$10 = train file name prefix
+#$11 = test file name prefix
+#$12 = validation file name prefix
 
 python spm_tokenization.py --datadir $1 --spmodelpath $2 --destdir $3 --modelprefix $4 --vocabsize $9 --trainprefix ${10}
 
@@ -28,9 +30,9 @@ fairseq-preprocess \
     --srcdict $FAIRSEQ_COMPAT_DICT \
     --tgtdict $FAIRSEQ_COMPAT_DICT \
     --source-lang $SRC_LANG --target-lang $TGT_LANG \
-    --trainpref $DATA_FOLDER/train \
-    --validpref $DATA_FOLDER/valid \
-    --testpref $DATA_FOLDER/test \
+    --trainpref $DATA_FOLDER/${10} \
+    --validpref $DATA_FOLDER/${11} \
+    --testpref $DATA_FOLDER/${12} \
     --destdir $DEST_DIR --thresholdtgt 0 --thresholdsrc 0 \
     --workers 20
 	
