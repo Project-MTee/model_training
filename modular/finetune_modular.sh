@@ -22,6 +22,8 @@ fairseq-train ${bin_dir}/ \
   --seed 1 \
   --restore-file ${finetune_model_path} \
   --reset-dataloader \
+  --reset-meters \
+  --reset-optimizer \
   --tensorboard-logdir tensorboard_logs/${model_name} --save-dir ${checkpoint_dir}/${model_name} \
   --lang-pairs ${lang_pairs} \
   --sampling-method concat \
