@@ -22,14 +22,16 @@ def main(args):
             list_of_train_files.append(os.path.join(dir_path, file))
     train_files = ','.join(list_of_train_files)
 
+    if not os.path.exists(args.spmodelpath):
+        os.makedirs(args.spmodelpath)
+
     # training and loading sentencepiece model
     spm_model_name = os.path.join(args.spmodelpath, args.modelprefix)
     spm.SentencePieceTrainer.train(input=train_files, model_prefix=spm_model_name, vocab_size=args.vocabsize, character_coverage=1.0, model_type='bpe')
     sp = spm.SentencePieceProcessor()
     sp.load(os.path.join(args.spmodelpath, args.modelprefix) + '.model')
 
-    path_exists = os.path.exists(dest_path)
-    if not path_exists:
+    if not os.path.exists(dest_path):
         os.makedirs(dest_path)
 
     # tokenization of files with the trained sentencepiece model
@@ -46,7 +48,7 @@ if __name__ == "__main__":
     parser.add_argument('-t', '--destdir', help='destination directory for tokenized files', required=True)
     parser.add_argument('-m', '--modelprefix', help='sentencepiece model prefix', required=True)
     parser.add_argument('-v', '--vocabsize', help='vocabulary size', required=True)
-    parser.add_argument('-p', '--trainprefix', help='train file prefix', required=True)
+    parser.add_argument('-p', '--trainprefix', help='training data file name (file prefix)', required=True)
 
     args = parser.parse_args()
     main(args)
