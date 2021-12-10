@@ -2,12 +2,30 @@
 
 ## Environment
 
-Training the modular model requires installing a custom Fairseq fork from https://github.com/taidopurason/fairseq. 
-Instructions for installing are available there.
+
+
+Install SentencePiece with:
+
+```
+conda install -c conda-forge sentencepiece
+```
+
+The model training requires TartuNLP Fairseq fork which has the following requirements:
+ (more details in https://github.com/TartuNLP/fairseq/tree/mtee):
+
+* PyTorch version >= 1.5.0
+* Python version >= 3.6
+
+To install it run:
+
+```
+pip install git+https://github.com/TartuNLP/fairseq.git@mtee-0.1.0
+```
+For more efficient training, installing NVIDIA Apex is recommended.
 
 ## Input files
 
-The input files should be detokenized and with normalized punctuation.
+The input files should be detokenized and normalized.
 
 For the base model, all the domains need to be combined into a single directory. For example,
 train.en-et.\* would contain all the domains. 
