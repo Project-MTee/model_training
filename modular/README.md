@@ -19,8 +19,11 @@ The model training requires TartuNLP Fairseq fork which has the following requir
 To install it run:
 
 ```
-pip install git+https://github.com/TartuNLP/fairseq.git@mtee-0.1.0
+git clone https://github.com/TartuNLP/fairseq.git --branch mtee-0.1.0
+cd fairseq
+pip install ./
 ```
+
 For more efficient training, installing NVIDIA Apex is recommended.
 
 ## Input files
