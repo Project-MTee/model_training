@@ -12,7 +12,7 @@ vocabulary_size=${5:-"24000"}
 
 character_coverage=${6:-"0.9999"}
 
-required_symbols=${7:-"abcdefghijklmnopqrstuvwxyzõäöüšžßABCDEFGHIJKLMNOPQRSTUVWXYZÕÄÖÜŠŽАаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя"}
+required_symbols=${7:-$(<top500.txt)}
 
 mkdir -p ${tmp_path} ${out_path}
 

@@ -2,6 +2,7 @@ from sentencepiece.sentencepiece_model_pb2 import ModelProto
 from typing import Iterable
 import argparse
 
+ILLEGAL_CHARS = {" ", "\n", "\r"}
 
 def add_missing_characters(input: str, output_prefix: str, required_vocab: Iterable[str]):
     model = ModelProto()
@@ -14,7 +15,7 @@ def add_missing_characters(input: str, output_prefix: str, required_vocab: Itera
     vocab = {p.piece for p in model.pieces}
 
     for c in required_vocab:
-        if c not in vocab:
+        if c not in vocab and c not in ILLEGAL_CHARS:
             score -= 1
             model.pieces.append(ModelProto.SentencePiece(piece=c, score=score))
 
