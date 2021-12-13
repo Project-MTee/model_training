@@ -10,8 +10,8 @@
 #$8 = model directory path
 #$9 = sentencepiece vocabulary size
 #$10 = train file name prefix
-#$11 = test file name prefix
-#$12 = validation file name prefix
+#$11 = validation file name prefix
+#$12 = test file name prefix
 
 python spm_tokenization.py --datadir $1 --spmodelpath $2 --destdir $3 --modelprefix $4 --vocabsize $9 --trainprefix ${10}
 
