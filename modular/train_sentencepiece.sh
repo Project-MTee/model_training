@@ -1,11 +1,17 @@
 #!/bin/bash
 
+# path to input data
 in_path=$1
 
+# where sp will write temporary files
 tmp_path=$2
 
+# path where sentencepiece models and vocabularies will be saved
 out_path=$3
 
+# langpairs used
+# when the data is symmetric use only half of the language pairs to avoid duplicate data
+# e.g. for en-et, et-en, de-et, et-de use en-et, de-et
 lang_pairs=$4
 
 vocabulary_size=${5:-"24000"}

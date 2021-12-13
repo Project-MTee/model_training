@@ -8,8 +8,10 @@ checkpoint_dir=$2
 # name for the model
 model_name=$3
 
+# all lang-pairs that the model will support
 lang_pairs=$4
 
+# the model to fine-tune from
 finetune_model_path=$5
 
 # n_gpus * --update-freq = 24
