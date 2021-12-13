@@ -31,13 +31,13 @@ The `baseline_train_workflow.sh` script takes data folder (where the files are a
 8. model directory path
 9. sentencepiece vocabulary size
 10. train file name prefix
-11. test file name prefix
-12. validation file name prefix
+11. validation file name prefix
+12. test file name prefix
 
 **Running example:**
 
 ```
-baseline_train_workflow.sh ../mt_project/clean_data/et_en/general ../mt_project/sp_models ../mt_project/tokenized_data_et_en_general SPM_et_en et en ../mt_project/data-bin_et_en_general ../mt_project/et_en_general_model 32000 train test valid
+baseline_train_workflow.sh ../mt_project/clean_data/et_en/general ../mt_project/sp_models ../mt_project/tokenized_data_et_en_general SPM_et_en et en ../mt_project/data-bin_et_en_general ../mt_project/et_en_general_model 32000 train valid test
 ```
 
 * `clean_data/et-en/general` folder consists of files `train.et, train.en, test.et, test.en, valid.et, valid.et`
