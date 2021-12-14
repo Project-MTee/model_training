@@ -67,7 +67,7 @@ Then the first 10,000,000 sentences are taken for training the SP model. To avoi
  
 Example:
 ```
-train_sentencepiece.sh ${data_dir} ${tmp_dir} ${sp_model_out_dir} et-en,et-de,et-ru
+bash train_sentencepiece.sh ${data_dir} ${tmp_dir} ${sp_model_out_dir} et-en,et-de,et-ru
 ```
  
 ### Segmenting
@@ -76,14 +76,14 @@ Segmenting files is done in `preprocess-sp.sh` (file input format "*{split}.{lan
 
 Example:
 ```
-preprocess-sp.sh ${data_dir} ${sp_model_dir} ${sp_out_dir} et-en,et-de,et-ru,en-et,de-et,ru-et
+bash preprocess-sp.sh ${data_dir} ${sp_model_dir} ${sp_out_dir} et-en,et-de,et-ru,en-et,de-et,ru-et
 ```
 
 ## Binarizing
 Binarizing files is done in `preprocess-fs.sh` (file input format "*{split}.{lang-pair}.{lang}*", same output format)
 
 ```
-preprocess-fs.sh ${sp_data_dir} ${sp_model_dir} ${bin_out_dir} et-en,et-de,et-ru,en-et,de-et,ru-et
+bash preprocess-fs.sh ${sp_data_dir} ${sp_model_dir} ${bin_out_dir} et-en,et-de,et-ru,en-et,de-et,ru-et
 ```
 
 *Note: After binarizing, the SentencePiece segmented files can be deleted, since they will not be used for training.*
@@ -96,7 +96,7 @@ max-tokens as fits in you GPU memory for efficient training.
 
 Example:
 ```
-train_modular.sh ${bin_dir} checkpoints modular_baseline de-et,en-et,et-ru,et-de,et-en,ru-et
+bash train_modular.sh ${bin_dir} checkpoints modular_baseline de-et,en-et,et-ru,et-de,et-en,ru-et
 ```
 
 ### Fine-tuning
@@ -105,11 +105,11 @@ or restarting the training (`finetune_modular.sh` or `finetune_modular_restart.s
 
 Example:
 ```
-finetune_modular.sh ${domain_bin_dir} checkpoints modular_domain_ft de-et,en-et,et-ru,et-de,et-en,ru-et checkpoints/modular_baseline/checkpoint_best.pt
+bash finetune_modular.sh ${domain_bin_dir} checkpoints modular_domain_ft de-et,en-et,et-ru,et-de,et-en,ru-et checkpoints/modular_baseline/checkpoint_best.pt
 ```
 or
 ```
-finetune_modular_restart.sh ${domain_bin_dir} checkpoints modular_domain_ft de-et,en-et,et-ru,et-de,et-en,ru-et checkpoints/modular_baseline/checkpoint_best.pt
+bash finetune_modular_restart.sh ${domain_bin_dir} checkpoints modular_domain_ft de-et,en-et,et-ru,et-de,et-en,ru-et checkpoints/modular_baseline/checkpoint_best.pt
 ```
 
 ## Back translation data
@@ -133,6 +133,13 @@ cat ${in_file} | awk '{print "<ft> " $0}' >> ${out_file}
 This is done after SentencePiece processing to keep SentencePiece from splitting the tags. The usage of the tags is optional,
 since they might not provide any noticeable difference in the translation quality.
 
+## Translating
+To translate with a trained model use `translate.sh`.
+
+Example:
+```
+bash translate.sh checkpoints/model/checkpoint_best.pt de-et,en-et,et-ru,et-de,et-en,ru-et sp-models/sp-model.et.model sp-models test.et hyp.test.en et en
+```
 
 ## Examples of workflow
 

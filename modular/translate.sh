@@ -9,8 +9,9 @@ out_file=$6 # path to the output file
 src_lang=$7
 tgt_lang=$8
 
-max_tokens=${9:-"50000"}
-buffer_size=${10:-"5000"}
+# change according to your GPU memory
+max_tokens=${9:-"5000"}
+buffer_size=${10:-"500"}
 
 
 cat ${in_file} | fairseq-interactive ${bin_dir} \
