@@ -9,6 +9,7 @@ data_dir=$1
 # outputs the data in format {out_dir}/{split}.{lang-pair}.{lang}
 out_dir=$2
 
+# comma separated list of language pairs. e.g. et-en,en-et,et-de,de-et
 lang_pairs=$3
 
 sets=${4:-"train,valid"}

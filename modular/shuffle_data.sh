@@ -3,10 +3,13 @@
 # Expects the input data to be in formar {split}.{lang-pair}.{lang} in {data_dir}
 # Writes the output in the same format into {out_dir}
 
+# directory of the data
 data_dir=$1
 
+# output directory where shuffled files will be written
 out_dir=$2
 
+# comma separated list of language pairs. e.g. et-en,en-et,et-de,de-et
 lang_pairs=$3
 
 sets=${4:-"train,valid"}

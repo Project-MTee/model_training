@@ -2,11 +2,12 @@
 
 ## Environment
 
-Install SentencePiece with:
-
+Install SentencePiece and portobuf for modifying SentecePiece models:
 ```
 conda install -c conda-forge sentencepiece
+pip install protobuf 
 ```
+
 
 The model training requires TartuNLP Fairseq fork which has the following requirements:
  (more details in https://github.com/TartuNLP/fairseq/tree/mtee):
@@ -44,44 +45,72 @@ When training with data that is symmetric (i.e. the et-ru and ru-et datasets are
 For example, with en-et, et-en, de-et, et-de we can preprocess en-et, de-et.
 
 When et-ru and ru-et are the language pairs of the model, but only et-ru is present, the model additionally assumes ru-et by automatically
-swiching et-ru. When training the model, all directions must still be explicitly stated in the parameters.
+switching et-ru. When training the model, all directions must still be explicitly stated in the parameters.
 
 When back translated data is used, the data is likely not symmetric and all directions must be present in the training data.
 If you are not sure if the data is symmetric, preprocess so that all directions are present in the training data.
 
 
-After combining various datasets (different domains for example) the data should be shuffled. (see *shuffle_data.sh*)
+After combining various datasets (different domains for example) the data should be shuffled. (see `shuffle_data.sh`)
 
 For training, the data needs to have a train (prefix *train* in the data) and validation (prefix *valid* for the data) data.
 The validation data is used for tracking training progress and early stopping.
 
 ## Sentencepiece
-Scripts: *train_sentencepiece.sh*, *preprocess-sp.sh*
 
-Training the Sentencepiece model is done in *train_sentencepiece.sh*.
+### Training
+Training the Sentencepiece model is done in `train_sentencepiece.sh`.
 
 The script trains a separate Sentencepiece (SP) model for each language. All the parallel training data from a language is combined and shuffled.
 Then the first 10,000,000 sentences are taken for training the SP model. To avoid duplicate training data with symmetric dataset
  use half of the language pairs as explained in Input files section.
+ 
+Example:
+```
+train_sentencepiece.sh ${data_dir} ${tmp_dir} ${sp_model_out_dir} et-en,et-de,et-ru
+```
+ 
+### Segmenting
 
-Segmenting files is done in *preprocess-sp.sh* (file input format "*{split}.{lang-pair}.{lang}*", same output format)
+Segmenting files is done in `preprocess-sp.sh` (file input format "*{split}.{lang-pair}.{lang}*", same output format)
+
+Example:
+```
+preprocess-sp.sh ${data_dir} ${sp_model_dir} ${sp_out_dir} et-en,et-de,et-ru,en-et,de-et,ru-et
+```
 
 ## Binarizing
-Script: *preprocess-fs.sh*
+Binarizing files is done in `preprocess-fs.sh` (file input format "*{split}.{lang-pair}.{lang}*", same output format)
 
-Binarizing files is done in *preprocess-fs.sh* (file input format "*{split}.{lang-pair}.{lang}*", same output format)
+```
+preprocess-fs.sh ${sp_data_dir} ${sp_model_dir} ${bin_out_dir} et-en,et-de,et-ru,en-et,de-et,ru-et
+```
+
+*Note: After binarizing, the SentencePiece segmented files can be deleted, since they will not be used for training.*
 
 ## Training the MT model
-Script: *train_modular.sh*
-
 When training the model, the update-frequency has to be chosen so that n-gpus*update-frequency=24.
 The product can likely be higher, but lowering it could hurt translation quality. 
 You can choose the max-tokens according to your GPU memory. It is recommended that you choose the largest possible 
 max-tokens as fits in you GPU memory for efficient training.
 
+Example:
+```
+train_modular.sh ${bin_dir} checkpoints modular_baseline de-et,en-et,et-ru,et-de,et-en,ru-et
+```
+
 ### Fine-tuning
 Fine-tuning can be carried out by either continuing the training with new training data
-or restarting the training (*finetune_modular.sh* or *finetune_modular_restart.sh* respectively).
+or restarting the training (`finetune_modular.sh` or `finetune_modular_restart.sh` respectively).
+
+Example:
+```
+finetune_modular.sh ${domain_bin_dir} checkpoints modular_domain_ft de-et,en-et,et-ru,et-de,et-en,ru-et checkpoints/modular_baseline/checkpoint_best.pt
+```
+or
+```
+finetune_modular_restart.sh ${domain_bin_dir} checkpoints modular_domain_ft de-et,en-et,et-ru,et-de,et-en,ru-et checkpoints/modular_baseline/checkpoint_best.pt
+```
 
 ## Back translation data
 The monolingual data translated in this porject is in format *train.{src}-{tgt}.{src/tgt}*. The source (*train.{src}-{tgt}.{src}*) is
@@ -112,28 +141,28 @@ this case they should be combined into the general data
 
 ### Workflow with parallel data
 
-For training with parallel data, An example of the workflow is in *workflow.sh*.
+For training with parallel data, an example of the workflow is in `workflow.sh`.
 
 ### Workflow with back translated data
 Without tags:
-* train the sentencepiece model with parallel data (*train_sentencepiece.sh*)
-* combine back translated and parallel training data (use validation data from parallel data)
-* preprocess machine translated data and parallel data separately (*preprocess-sp.sh*)
-* binarize training and validation data (*preprocess-fs.sh*)
-* train models (*train_modular.sh*)
+1. train the sentencepiece model with parallel data (`train_sentencepiece.sh`)
+1. combine back translated and parallel training data (use validation data from parallel data)
+1. preprocess machine translated data and parallel data separately (`preprocess-sp.sh`)
+1. binarize training and validation data (`preprocess-fs.sh`)
+1. train models (`train_modular.sh`)
 
 With tags (optional):
-* train the sentencepiece model with parallel data (*train_sentencepiece.sh*)
-* preprocess machine translated data and parallel data separately (*preprocess-sp.sh*)
-* add tags to preprocessed back translation data 
-* combine parallel and back translated data (use validation data from parallel data)
-* binarize training and validation data (*preprocess-fs.sh*)
-* train models (*train_modular.sh*)
+1. train the sentencepiece model with parallel data (`train_sentencepiece.sh`)
+1. preprocess machine translated data and parallel data separately (`preprocess-sp.sh`)
+1. add tags to preprocessed back translation data 
+1. combine parallel and back translated data (use validation data from parallel data)
+1. binarize training and validation data (`preprocess-fs.sh`)
+1. train models (`train_modular.sh`)
 
 ### Workflow for fine-tuning
 The steps of preprocessing training fine-tuning model are:
-* preprocess domain data (train and validation sets) 
-with the sentencepiece model that was used to preprocess the data the model was trained with (*preprocess-sp.sh*)
-* binarize data (*preprocess-fs.sh*)
-* fine-tune models (*finetune_modular.sh* or *finetune_modular_restart.sh*)
+1. preprocess domain data (train and validation sets) 
+with the sentencepiece model that was used to preprocess the data the model was trained with (`preprocess-sp.sh`)
+1. binarize data (`preprocess-fs.sh`)
+1. fine-tune models (`finetune_modular.sh` or `finetune_modular_restart.sh`)
 

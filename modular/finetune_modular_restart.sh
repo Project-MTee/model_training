@@ -8,7 +8,7 @@ checkpoint_dir=$2
 # name for the model
 model_name=$3
 
-# all lang-pairs that the model will support
+# all lang-pairs that the model will support, e.g. et-en,en-et,et-de,de-et
 lang_pairs=$4
 
 # the model to fine-tune from

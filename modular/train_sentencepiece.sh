@@ -9,7 +9,7 @@ tmp_path=$2
 # path where sentencepiece models and vocabularies will be saved
 out_path=$3
 
-# langpairs used
+# langpairs used  (comma separated, e.g. et-en,et-de)
 # when the data is symmetric use only half of the language pairs to avoid duplicate data
 # e.g. for en-et, et-en, de-et, et-de use en-et, de-et
 lang_pairs=$4

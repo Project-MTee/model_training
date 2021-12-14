@@ -8,14 +8,13 @@ checkpoint_dir=$2
 # name for the model
 model_name=$3
 
-# all lang-pairs that the model will support
+# all lang-pairs that the model will support, e.g. et-en,en-et,et-de,de-et
 lang_pairs=$4
 
 # the model to fine-tune from
 finetune_model_path=$5
 
 # n_gpus * --update-freq = 24
-
 
 fairseq-train ${bin_dir}/ \
   --task multilingual_translation_sampled --arch multilingual_transformer \
@@ -36,4 +35,3 @@ fairseq-train ${bin_dir}/ \
   --lr 0.0008 --lr-scheduler inverse_sqrt --optimizer adam --adam-betas '(0.9, 0.98)' \
   --warmup-updates 4000 --warmup-init-lr '1e-07' --label-smoothing 0.1 --criterion label_smoothed_cross_entropy \
   --ddp-backend=no_c10d --fp16 --num-workers 0
-

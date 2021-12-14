@@ -9,6 +9,7 @@ sp_model_dir=$2
 # output directory for the binarized files
 bin_dir=$3
 
+# comma separated list of language pairs. e.g. et-en,en-et,et-de,de-et
 lang_pairs=$4
 
 # number of workers to use for binarizing
