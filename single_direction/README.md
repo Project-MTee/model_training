@@ -65,7 +65,7 @@ baseline_train_workflow.sh ../mt_project/clean_data/et_en/general ../mt_project/
 | EN-ET                    | 31.44       |             | 31.49       |                                     |
 | ET-DE                    | 31.85       |             | 30.75       |                                     |
 | DE-ET                    | 28.59       |             | 27.65       |                                     |
-| AVERAGE                  | 31.175      |             | 31.18833333 |                                     |
+| AVERAGE                  | 31.18       |             | 31.19       |                                     |
 |                          |             |             |             |                                     |
 | **legal test set**       |             |             |             |                                     |
 |                          | BASELINE    | BASELINE FT | MODULAR     | MODULAR FT                          |
@@ -75,7 +75,7 @@ baseline_train_workflow.sh ../mt_project/clean_data/et_en/general ../mt_project/
 | EN-ET                    | 47.82       | 48.01       | 47.1        | 47.62                               |
 | ET-DE                    | 44.59       | 44.79       | 44.82       | 44.71                               |
 | DE-ET                    | 41.27       | 41.09       | 41.71       | 41.48                               |
-| AVERAGE                  | 48.20833333 | 47.95       | 48.68833333 | 50.72833333                         |
+| AVERAGE                  | 48.21       | 47.95       | 48.69       | 50.73                               |
 |                          |             |             |             |                                     |
 | **crisis test set**      |             |             |             |                                     |
 |                          | BASELINE    | BASELINE FT | MODULAR     | MODULAR FT                          |
@@ -85,7 +85,7 @@ baseline_train_workflow.sh ../mt_project/clean_data/et_en/general ../mt_project/
 | EN-ET                    | 28.2        | 31.9        | 28.81       | 33.26                               |
 | ET-DE                    | 24.96       | N\A         | 25.79       | 25.66\*                             |
 | DE-ET                    | 21.19       | N\A         | 21.76       | 22.91\*                             |
-| AVERAGE                  | 27.63       | 32.8075     | 28.675      | 34.98                               |
+| AVERAGE                  | 27.63       | 32.81       | 28.68       | 34.98                               |
 |                          |             |             |             |                                     |
 | **military test set**    |             |             |             |                                     |
 |                          | BASELINE    | BASELINE FT | MODULAR     | MODULAR FT                          |
@@ -95,7 +95,7 @@ baseline_train_workflow.sh ../mt_project/clean_data/et_en/general ../mt_project/
 | EN-ET                    | 32.42       | 33.52       | 31.57       | 33.34                               |
 | ET-DE                    | 31.55       | 31.8        | 30.62       | 31.96                               |
 | DE-ET                    | 26.39       | 27.69       | 26.67       | 28.53                               |
-| AVERAGE                  | 29.365      | 30.19       | 29.245      | 30.665                              |
+| AVERAGE                  | 29.37       | 30.19       | 29.25       | 30.67                               |
 
 <br>
 <br>
@@ -111,7 +111,7 @@ baseline_train_workflow.sh ../mt_project/clean_data/et_en/general ../mt_project/
 | EN-ET                | 64.45       |             | 64.38       |             |
 | ET-DE                | 60.31       |             | 60.06       |             |
 | DE-ET                | 61.01       |             | 60.91       |             |
-| AVERAGE              | 61.22833333 |             | 61.52833333 |             |
+| AVERAGE              | 61.23       |             | 61.53       |             |
 |                      |             |             |             |             |
 | **legal test set**   |             |             |             |             |
 |                      | BASELINE    | BASELINE FT | MODULAR     | MODULAR FT  |
@@ -121,7 +121,7 @@ baseline_train_workflow.sh ../mt_project/clean_data/et_en/general ../mt_project/
 | EN-ET                | 76.33       | 75.94       | 75.82       | 76.04       |
 | ET-DE                | 69.26       | 68.78       | 69.05       | 69.12       |
 | DE-ET                | 69.81       | 69.51       | 70.2        | 70.11       |
-| AVERAGE              | 74.63666667 | 75.16       | 74.73       | 75.81333333 |
+| AVERAGE              | 74.64       | 75.16       | 74.73       | 75.81       |
 |                      |             |             |             |             |
 | **crisis test set**  |             |             |             |             |
 |                      | BASELINE    | BASELINE FT | MODULAR     | MODULAR FT  |
@@ -131,41 +131,41 @@ baseline_train_workflow.sh ../mt_project/clean_data/et_en/general ../mt_project/
 | EN-ET                | 62.29       | 64.74       | 62.21       | 65.46       |
 | ET-DE                | 55.65       | N\A         | 55.89       | 56.2\*      |
 | DE-ET                | 57.61       | N\A         | 58.29       | 58.81\*     |
-| AVERAGE              | 58.875      | 62.15       | 59.49166667 | 63.775      |
+| AVERAGE              | 58.88       | 62.15       | 59.49       | 63.78       |
 
 <br>  
 <br> 
 
-**COMET**
+**COMET** - wmt20-comet-da
 
 | general test set     |              |             |              |            |
 | -------------------- | ------------ | ----------- | ------------ | ---------- |
 |                      | BASELINE     |             | MODULAR      |            |
-| ET-RU                | 0.8113       |             | 0.8324       |            |
-| RU-ET                | 0.9626       |             | 1.0208       |            |
-| ET-EN                | 0.7438       |             | 0.757        |            |
-| EN-ET                | 1.0691       |             | 1.0938       |            |
-| ET-DE                | 0.6945       |             | 0.7196       |            |
-| DE-ET                | 1.0325       |             | 1.065        |            |
-| AVERAGE              | 0.8856333333 |             | 0.9147666667 |            |
+| ET-RU                | 0.81         |             | 0.83         |            |
+| RU-ET                | 0.96         |             | 1.02         |            |
+| ET-EN                | 0.74         |             | 0.76         |            |
+| EN-ET                | 1.07         |             | 1.09         |            |
+| ET-DE                | 0.69         |             | 0.72         |            |
+| DE-ET                | 1.03         |             | 1.07         |            |
+| AVERAGE              | 0.89         |             | 0.91         |            |
 |                      |              |             |              |            |
 | **legal test set**   |              |             |              |            |
 |                      | BASELINE     | BASELINE FT | MODULAR      | MODULAR FT |
-| ET-RU                | 0.9711       | 0.9932      | 0.9827       | 1.0154     |
-| RU-ET                | 1.1578       | 1.1813      | 1.2123       | 1.2387     |
-| ET-EN                | 0.7722       | 0.7726      | 0.7776       | 0.7794     |
-| EN-ET                | 1.2061       | 1.2031      | 1.2122       | 1.2254     |
-| ET-DE                | 0.7308       | 0.7246      | 0.7368       | 0.7409     |
-| DE-ET                | 1.1393       | 1.1378      | 1.1721       | 1.1703     |
-| AVERAGE              | 0.9962166667 | 1.0021      | 1.015616667  | 1.02835    |
+| ET-RU                | 0.97         | 0.99        | 0.98         | 1.02       |
+| RU-ET                | 1.16         | 1.18        | 1.21         | 1.24       |
+| ET-EN                | 0.77         | 0.77        | 0.78         | 0.78       |
+| EN-ET                | 1.21         | 1.20        | 1.21         | 1.23       |
+| ET-DE                | 0.73         | 0.72        | 0.74         | 0.74       |
+| DE-ET                | 1.14         | 1.14        | 1.17         | 1.17       |
+| AVERAGE              | 1.00         | 1.00        | 1.02         | 1.03       |
 |                      |              |             |              |            |
 | **crisis test set**  |              |             |              |            |
 |                      | BASELINE     | BASELINE FT | MODULAR      | MODULAR FT |
-| ET-RU                | 0.8038       | 0.8366      | 0.852        | 0.8999     |
-| RU-ET                | 1.0221       | 1.0431      | 1.0638       | 1.1032     |
-| ET-EN                | 0.7563       | 0.7799      | 0.7586       | 0.7914     |
-| EN-ET                | 1.1207       | 1.1597      | 1.1384       | 1.1772     |
-| ET-DE                | 0.6689       | \-          | 0.7058       | 0.7113\*   |
-| DE-ET                | 1.0739       | \-          | 1.1018       | 1.1017\*   |
-| AVERAGE              | 0.9076166667 | 0.954825    | 0.9367333333 | 0.992925   |
+| ET-RU                | 0.80         | 0.84        | 0.85         | 0.90       |
+| RU-ET                | 1.02         | 1.04        | 1.06         | 1.10       |
+| ET-EN                | 0.76         | 0.78        | 0.76         | 0.79       |
+| EN-ET                | 1.12         | 1.16        | 1.14         | 1.18       |
+| ET-DE                | 0.67         | N\A         | 0.71         | 0.71\*     |
+| DE-ET                | 1.07         | N\A         | 1.10         | 1.10\*     |
+| AVERAGE              | 0.91         | 0.95        | 0.94         | 0.99       |
 <br>
