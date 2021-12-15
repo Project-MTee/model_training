@@ -141,6 +141,22 @@ Example:
 bash translate.sh checkpoints/model/checkpoint_best.pt de-et,en-et,et-ru,et-de,et-en,ru-et sp-models/sp-model.et.model sp-models test.et hyp.test.en et en
 ```
 
+## Ensembling
+
+We use averaging checkpoint weights as the ensembling method.
+
+Download the ensembling script:
+```
+wget https://raw.githubusercontent.com/pytorch/fairseq/ee833ed49d79da00faa396bd0509782841d3d688/scripts/average_checkpoints.py
+```
+
+An example of how ensembled checkpoint can be created:
+```
+python average_checkpoints.py --inputs checkpoints/checkpoint60.pt checkpoints/checkpoint61.pt checkpoints/checkpoint62.pt --output checkpoints/checkpoint_average.pt
+```
+
+As the input, provide the checkpoints you wish to ensemble.
+
 ## Examples of workflow
 
 For training general-purpose model, you might want to use data of all domians during training. In
