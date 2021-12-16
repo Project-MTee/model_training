@@ -189,3 +189,159 @@ with the sentencepiece model that was used to preprocess the data the model was 
 1. binarize data (`preprocess-fs.sh`)
 1. fine-tune models (`finetune_modular.sh` or `finetune_modular_restart.sh`)
 
+## Held-out test set automatic evaluation scores
+
+We evaluate the translation quality of the models on 3 metrics: BLEU, chrF, and COMET.
+
+Models:
+* public model - model trained with public data, including back-translated data.
+* public, ft + bt - same as public, but additionally includes forward-translated data.
+* private model - model trained with public and proprietary data.
+* domain ft - models fine-tuned with domain data.
+
+
+### BLEU
+
+#### General
+| direction | public | public, ft + bt | private |
+| --------- | ------ | --------------- | ------- |
+| et-en     | 38.9   | 39.2            | 38.4    |
+| et-de     | 29.1   | 29.2            | 29.3    |
+| et-ru     | 29     | 30              | 28.7    |
+| en-et     | 31.4   | 30.6            | 30.7    |
+| de-et     | 27.5   | 26.9            | 28.2    |
+| ru-et     | 28.1   | 27.6            | 27.8    |
+| AVG       | 30.67  | 30.58           | 30.52   |
+
+#### Legal
+| direction | public | public, ft + bt | public, domain ft | private | private, domain ft |
+| --------- | ------ | --------------- | ----------------- | ------- | ------------------ |
+| et-en     | 53.5   | 53.5            | 56.2              | 54      | 54.7               |
+| et-de     | 41.2   | 40.9            | 43.5              | 42.9    | 42.9               |
+| et-ru     | 45.4   | 50.7            | 56.9              | 47.1    | 53.3               |
+| en-et     | 45.7   | 44.2            | 47.1              | 45.6    | 46.2               |
+| de-et     | 39.1   | 38.2            | 40.8              | 40.1    | 40.1               |
+| ru-et     | 53.0   | 52.7            | 60.8              | 50.4    | 53.7               |
+| AVG       | 46.31  | 46.70           | 50.89             | 46.68   | 48.48              |
+
+#### Crisis
+| direction | public | public, ft + bt | public, domain ft | private | private, domain ft |
+| --------- | ------ | --------------- | ----------------- | ------- | ------------------ |
+| et-en     | 36.4   | 37.2            | 38.8              | 34.4    | 39.9               |
+| et-de     | 25.2   | 25.8            | 24.1              | 26.2    | 25.8               |
+| et-ru     | 32.5   | 33.4            | 34.6              | 31.6    | 34.8               |
+| en-et     | 30.2   | 30.4            | 31.1              | 28.8    | 31.9               |
+| de-et     | 22.4   | 22.6            | 20.6              | 22.8    | 21.9               |
+| ru-et     | 30.6   | 29.1            | 31.6              | 29.9    | 31.1               |
+| AVG       | 29.55  | 29.75           | 30.14             | 28.95   | 30.90              |
+
+#### Military
+| direction | public | public, ft + bt | public, domain ft | private | private, domain ft |
+| --------- | ------ | --------------- | ----------------- | ------- | ------------------ |
+| et-en     | 40.5   | 41              | 43                | 40.4    | 42.6               |
+| et-de     | 28.9   | 28.9            | 30.5              | 29      | 30.9               |
+| et-ru     | 24.8   | 24.7            | 26.4              | 24.4    | 27.1               |
+| en-et     | 31.7   | 31.4            | 34                | 29.8    | 33.1               |
+| de-et     | 25.2   | 25              | 27.4              | 24.9    | 28.1               |
+| ru-et     | 22.8   | 21.7            | 24.7              | 21.9    | 25                 |
+| AVG       | 28.98  | 28.78           | 31.00             | 28.40   | 31.13              |
+
+
+### chrF
+
+#### General
+| direction | public | public, ft + bt | private |
+| --------- | ------ | --------------- | ------- |
+| et-en     | 64.15  | 64.23           | 63.3    |
+| et-de     | 58.68  | 58.57           | 59.2    |
+| et-ru     | 57.48  | 58.3            | 57.2    |
+| en-et     | 64.26  | 63.71           | 63      |
+| de-et     | 60.7   | 60.09           | 60.7    |
+| ru-et     | 61.63  | 61.07           | 61.6    |
+| AVG       | 61.15  | 61.00           | 60.83   |
+
+#### Legal
+
+| direction | public | public, ft + bt | public, domain ft | private | private, domain ft |
+| --------- | ------ | --------------- | ----------------- | ------- | ------------------ |
+| et-en     | 74.1   | 73.9            | 75.7              | 63.3    | 74.8               |
+| et-de     | 66.7   | 66.5            | 68.3              | 59.2    | 68.2               |
+| et-ru     | 73.0   | 76.6            | 80.0              | 56.6    | 78.1               |
+| en-et     | 74.9   | 73.9            | 75.9              | 63      | 75.3               |
+| de-et     | 68.3   | 68.0            | 69.6              | 60.7    | 69.3               |
+| ru-et     | 81.7   | 81.6            | 85.0              | 59.2    | 82                 |
+| AVG       | 73.10  | 73.41           | 75.74             | 60.33   | 74.62              |
+
+#### Crisis
+
+| direction | public | public, ft + bt | public, domain ft | private | private, domain ft |
+| --------- | ------ | --------------- | ----------------- | ------- | ------------------ |
+| et-en     | 62.7   | 62.9            | 63.9              | 60.7    | 64.6               |
+| et-de     | 55.7   | 56              | 55.1              | 56.3    | 56.2               |
+| et-ru     | 59.2   | 59.6            | 60.9              | 58.5    | 61.2               |
+| en-et     | 63.4   | 63.6            | 64.1              | 62.2    | 64.3               |
+| de-et     | 58.8   | 58.7            | 57.1              | 58.8    | 57.9               |
+| ru-et     | 62.6   | 61.3            | 63.4              | 62.3    | 63                 |
+| AVG       | 60.40  | 60.35           | 60.75             | 59.80   | 61.20              |
+
+#### Military
+
+| direction | public | public, ft + bt | public, domain ft | private | private, domain ft |
+| --------- | ------ | --------------- | ----------------- | ------- | ------------------ |
+| et-en     | 65.86  | 65.89           | 67.16             | 65.5    | 66.9               |
+| et-de     | 58.83  | 59.01           | 59.71             | 59.2    | 60.2               |
+| et-ru     | 52.57  | 52.55           | 53.4              | 51.9    | 53.9               |
+| en-et     | 65     | 64.6            | 66.54             | 64.4    | 66.1               |
+| de-et     | 58.51  | 58.25           | 59.74             | 58.6    | 60.5               |
+| ru-et     | 54.89  | 54.28           | 56.12             | 54.4    | 56.1               |
+| AVG       | 59.28  | 59.10           | 60.45             | 59.00   | 60.62              |
+
+### COMET
+
+#### General
+
+| direction | public | private |
+| --------- | ------ | ------- |
+| et-en     | 0.7442 | 0.7273  |
+| et-de     | 0.7158 | 0.7210  |
+| et-ru     | 0.8448 | 0.8414  |
+| en-et     | 1.1036 | 1.1126  |
+| de-et     | 1.0766 | 1.0861  |
+| ru-et     | 1.0451 | 1.0472  |
+| AVG       | 0.9217 | 0.92260 |
+
+#### Legal
+
+| direction | public | public domain ft | private |
+| --------- | ------ | ---------------- | ------- |
+| et-en     | 0.7569 | 0.7736           | 0.7612  |
+| et-de     | 0.7185 | 0.7263           | 0.7288  |
+| et-ru     | 0.9581 | 1.0239           | 1.0037  |
+| en-et     | 1.2155 | 1.2282           | 1.2228  |
+| de-et     | 1.1569 | 1.1747           | 1.1736  |
+| ru-et     | 1.2203 | 1.2460           | 1.2314  |
+| AVG       | 1.0044 | 1.02878          | 1.0203  |
+
+#### Crisis
+
+| direction | public | public domain ft | private |
+| --------- | ------ | ---------------- | ------- |
+| et-en     | 0.7659 | 0.7756           | 0.7772  |
+| et-de     | 0.7020 | 0.6872           | 0.7031  |
+| et-ru     | 0.8778 | 0.90140          | 0.8947  |
+| en-et     | 1.1574 | 1.16070          | 1.1740  |
+| de-et     | 1.1125 | 1.07410          | 1.0871  |
+| ru-et     | 1.1124 | 1.12990          | 1.1204  |
+| AVG       | 0.9547 | 0.95482          | 0.9594  |
+
+#### Military
+
+| direction | public | public domain ft | private |
+| --------- | ------ | ---------------- | ------- |
+| et-en     | 0.5351 | 0.5605           | 0.5643  |
+| et-de     | 0.4403 | 0.4491           | 0.4557  |
+| et-ru     | 0.3312 | 0.3249           | 0.3406  |
+| en-et     | 0.8429 | 0.8757           | 0.876   |
+| de-et     | 0.728  | 0.7612           | 0.7673  |
+| ru-et     | 0.4432 | 0.4569           | 0.4728  |
+| AVG       | 0.5535 | 0.57138          | 0.5795  |
